@@ -55,6 +55,7 @@
     "@japa/runner": "^3.1.1",
     "@swc/core": "^1.3.102",
     "@types/node": "^20.10.7",
+    "@types/qrcode": "^1.5.5",
     "c8": "^9.0.0",
     "copyfiles": "^2.4.1",
     "del-cli": "^5.0.0",
@@ -96,6 +97,7 @@
   },
   "prettier": "@adonisjs/prettier-config",
   "dependencies": {
-    "node-2fa": "^2.0.3"
+    "otplib": "^12.0.1",
+    "qrcode": "^1.5.3"
   }
 }

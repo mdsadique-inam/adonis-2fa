@@ -2,23 +2,28 @@ import { test } from '@japa/runner'
 import { TwoFactorAuthManager } from '../index.js'
 import { randomInt } from 'node:crypto'
 
-const issuer = 'My app'
+const config = {
+  issuer: 'My app',
+  recoveryCodeCount: 10,
+  recoveryCodeSize: 32,
+  numberOfSecretBytes: 20,
+}
 
 test.group('TwoFactorAuthManager', () => {
   test('it should be able to create a Secret', async ({ assert }) => {
     const email = 'johndoe@test.com'
-    const manager = new TwoFactorAuthManager({ issuer })
+    const manager = new TwoFactorAuthManager(config)
 
-    const twoFactorSecret = manager.generateSecret(email)
+    const twoFactorSecret = await manager.generateSecret(email)
 
     assert.properties(twoFactorSecret, ['secret', 'uri', 'qr'])
     assert.equal(twoFactorSecret.secret.length, 32)
     assert.include(twoFactorSecret.uri, encodeURIComponent(email))
-    assert.include(twoFactorSecret.uri, encodeURIComponent(issuer))
+    assert.include(twoFactorSecret.uri, encodeURIComponent(config.issuer))
   })
 
   test('it should be able to create a recovery codes', async ({ assert }) => {
-    const manager = new TwoFactorAuthManager({ issuer })
+    const manager = new TwoFactorAuthManager(config)
 
     const recoveryCodes = manager.generateRecoveryCodes()
 
@@ -33,7 +38,7 @@ test.group('TwoFactorAuthManager', () => {
   })
 
   test('it should be able to create n recovery codes', async ({ assert }) => {
-    const manager = new TwoFactorAuthManager({ issuer })
+    const manager = new TwoFactorAuthManager(config)
 
     const length = randomInt(20)
 
@@ -44,9 +49,9 @@ test.group('TwoFactorAuthManager', () => {
   })
 
   test('it should be able to verify a valid secret and OTP', async ({ assert }) => {
-    const manager = new TwoFactorAuthManager({ issuer })
+    const manager = new TwoFactorAuthManager(config)
 
-    const { secret } = manager.generateSecret('any')
+    const { secret } = await manager.generateSecret('any')
 
     const token = manager.generateToken(secret)!
 
@@ -56,9 +61,9 @@ test.group('TwoFactorAuthManager', () => {
   })
 
   test('it not should be able to verify a valid secret and invalid OTP', async ({ assert }) => {
-    const manager = new TwoFactorAuthManager({ issuer })
+    const manager = new TwoFactorAuthManager(config)
 
-    const { secret } = manager.generateSecret('any')
+    const { secret } = await manager.generateSecret('any')
 
     const isValid = manager.verifyToken(secret, 'something')
 
@@ -66,9 +71,9 @@ test.group('TwoFactorAuthManager', () => {
   })
 
   test('it not should be able to verify a invalid secret and valid OTP', async ({ assert }) => {
-    const manager = new TwoFactorAuthManager({ issuer })
+    const manager = new TwoFactorAuthManager(config)
 
-    const { secret } = manager.generateSecret('any')
+    const { secret } = await manager.generateSecret('any')
 
     const token = manager.generateToken(secret)!
 
@@ -78,7 +83,7 @@ test.group('TwoFactorAuthManager', () => {
   })
 
   test('it should be able to verify when OTP is a recovery code', async ({ assert }) => {
-    const manager = new TwoFactorAuthManager({ issuer })
+    const manager = new TwoFactorAuthManager(config)
 
     const recoveryCodes = manager.generateRecoveryCodes()
 

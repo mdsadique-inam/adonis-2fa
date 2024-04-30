@@ -1,7 +1,7 @@
 import type { ApplicationService } from '@adonisjs/core/types'
 
 import { TwoFactorAuthManager } from '../src/two_factor_auth_manager.js'
-import { ResolvedTwoFactorAuthConfig } from '../src/types.js'
+import { TwoFactorAuthConfig } from '../src/types.js'
 import { configProvider } from '@adonisjs/core'
 import { RuntimeException } from '@adonisjs/core/exceptions'
 
@@ -22,7 +22,7 @@ export default class TwoFactorAuthProvider {
    */
   register() {
     this.app.container.singleton('two_factor_auth', async () => {
-      const twoFactorConfigProvider = this.app.config.get<ResolvedTwoFactorAuthConfig>('2fa')
+      const twoFactorConfigProvider = this.app.config.get<TwoFactorAuthConfig>('2fa')
 
       /**
        * Resolve config from the provider

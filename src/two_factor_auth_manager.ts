@@ -1,7 +1,7 @@
-import * as twoFactor from 'node-2fa'
-
 import { ResolvedTwoFactorAuthConfig, TwoFactorSecret } from './types.js'
 import { randomInt } from 'node:crypto'
+import { authenticator } from 'otplib'
+import QRCode from 'qrcode'
 
 export class TwoFactorAuthManager {
   constructor(private config: ResolvedTwoFactorAuthConfig) {}
@@ -9,11 +9,16 @@ export class TwoFactorAuthManager {
   /**
    * Generate a `Secret` to the given user information
    */
-  generateSecret(userInfo: string): TwoFactorSecret {
-    return twoFactor.generateSecret({
-      name: this.config.issuer,
-      account: userInfo,
-    })
+  async generateSecret(userInfo: string): Promise<TwoFactorSecret> {
+    const secret = authenticator.generateSecret(this.config.numberOfSecretBytes)
+    const uri = authenticator.keyuri(userInfo, this.config.issuer, secret)
+    const qr = await QRCode.toDataURL(uri)
+
+    return {
+      secret,
+      uri,
+      qr,
+    }
   }
 
   /**
@@ -28,21 +33,23 @@ export class TwoFactorAuthManager {
    * valid to the user `secret`, or if the `recovery codes` includes the `otp`.
    */
   verifyToken(secret: string = '', token: string, recoveryCodes: string[] = []) {
-    const verifyResult = twoFactor.verifyToken(secret, token)
-    if (!verifyResult) {
-      const isSecretInRecoveryCodes = recoveryCodes.includes(token)
-
-      return isSecretInRecoveryCodes
+    let isValid = false
+    try {
+      isValid = authenticator.verify({ token: token.toString(), secret })
+    } finally {
+      if (!isValid) {
+        isValid = recoveryCodes.includes(token)
+      }
     }
 
-    return verifyResult.delta === 0 // Valida token atual, não permitindo token já expirado ou token futuro
+    return isValid
   }
 
   /**
    * Generate a new token from a secret string
    */
-  generateToken(secret: string) {
-    return twoFactor.generateToken(secret)?.token
+  generateToken(secret: string): string {
+    return authenticator.generate(secret)
   }
 
   private generateRandomChar() {
