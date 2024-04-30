@@ -25,7 +25,7 @@ export type ResolvedTwoFactorAuthConfig = {
    * @type {number}
    * @default 10
    */
-  recoveryCodeCount: number
+  recoveryCodesLength: number
 }
 
 export type TwoFactorAuthConfig = Partial<ResolvedTwoFactorAuthConfig> & {

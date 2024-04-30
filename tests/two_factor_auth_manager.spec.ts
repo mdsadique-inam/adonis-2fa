@@ -4,8 +4,8 @@ import { randomInt } from 'node:crypto'
 
 const config = {
   issuer: 'My app',
-  recoveryCodeCount: 10,
-  recoveryCodeSize: 32,
+  recoveryCodesLength: 10,
+  recoveryCodeSize: 10,
   numberOfSecretBytes: 20,
 }
 
@@ -28,9 +28,9 @@ test.group('TwoFactorAuthManager', () => {
     const recoveryCodes = manager.generateRecoveryCodes()
 
     assert.isArray(recoveryCodes)
-    assert.lengthOf(recoveryCodes, 16)
+    assert.lengthOf(recoveryCodes, config.recoveryCodesLength)
 
-    const recoveryCodeRegex = /^[A-Z0-9]{5}\s[A-Z0-9]{5}$/
+    const recoveryCodeRegex = /^[A-Za-z0-9]{5}\s[A-Za-z0-9]{5}$/
 
     for (const code of recoveryCodes) {
       assert.isTrue(recoveryCodeRegex.test(code))

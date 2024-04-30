@@ -24,8 +24,9 @@ export class TwoFactorAuthManager {
   /**
    * Generate `n` recovery codes
    */
-  generateRecoveryCodes(n = 16) {
-    return Array.from({ length: n }, () => this.generateRecoveryCode(10))
+  generateRecoveryCodes(n?: number) {
+    const length = n || this.config.recoveryCodesLength
+    return Array.from({ length }, () => this.generateRecoveryCode(this.config.recoveryCodeSize))
   }
 
   /**
@@ -53,7 +54,7 @@ export class TwoFactorAuthManager {
   }
 
   private generateRandomChar() {
-    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     const randomIndex = randomInt(0, charset.length)
     return charset[randomIndex]
   }

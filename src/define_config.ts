@@ -15,7 +15,7 @@ export function defineConfig(
       issuer: config.issuer,
       numberOfSecretBytes: config.numberOfSecretBytes || 20,
       recoveryCodeSize: config.recoveryCodeSize || 32,
-      recoveryCodeCount: config.recoveryCodeCount || 10,
+      recoveryCodesLength: config.recoveryCodesLength || 10,
     }
   })
 }
