@@ -19,7 +19,7 @@ To create that we should call the `generateSecret` method passing some user info
 ```ts
 import type { HttpContext } from '@adonisjs/core/http'
 
-import twoFactorAuth from '@nulix/adonis-2fa/services/main'
+import twoFactorAuth from '@mdsadique-inam/adonis-2fa/services/main'
 
 export default class TwoFactorAuthController {
   async generate({ auth }: HttpContext) {
@@ -50,7 +50,7 @@ If you are using [Lucid](https://lucid.adonisjs.com/docs/introduction), you can 
 ```ts
 // ...other imports
 import encryption from '@adonisjs/core/services/encryption'
-import { TwoFactorSecret } from '@nulix/adonis-2fa/types'
+import { TwoFactorSecret } from '@mdsadique-inam/adonis-2fa/types'
 
 export default class User extends compose(BaseModel, AuthFinder) {
   // ...other user columns
@@ -74,7 +74,7 @@ To create them we should call the `generateRecoveryCodes` method. As default, it
 ```ts
 import type { HttpContext } from '@adonisjs/core/http'
 
-import twoFactorAuth from '@nulix/adonis-2fa/services/main'
+import twoFactorAuth from '@mdsadique-inam/adonis-2fa/services/main'
 
 export default class TwoFactorAuthController {
   async generateRecoveryCodes({ auth }: HttpContext) {
@@ -118,7 +118,7 @@ To verify the OTP (One-time password) we should use the `verifyToken` method pas
 ```ts
 import type { HttpContext } from '@adonisjs/core/http'
 
-import twoFactorAuth from '@nulix/adonis-2fa/services/main'
+import twoFactorAuth from '@mdsadique-inam/adonis-2fa/services/main'
 
 export default class TwoFactorAuthController {
   async verify({ auth, request, response }: HttpContext) {

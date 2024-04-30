@@ -7,7 +7,7 @@ summary: How set Adonis-2FA Basic flow controller
 This is the controller that we recommend to the basic flow.
 
 ```ts
-import twoFactorAuth from '@nulix/adonis-2fa/services/main'
+import twoFactorAuth from '@mdsadique-inam/adonis-2fa/services/main'
 import type { HttpContext } from '@adonisjs/core/http'
 
 import { verifyOtpValidator } from '#validators/verify_otp'
