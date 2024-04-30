@@ -1,4 +1,4 @@
-# @nulix/adonis-2fa
+# @mdsadique-inam/adonis-2fa
 
 <br />
 
