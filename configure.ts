@@ -73,6 +73,6 @@ export async function configure(command: ConfigureCommand) {
    * Register provider
    */
   await codemods.updateRcFile((rcFile) => {
-    rcFile.addProvider('@nulix/adonis-2fa/two_factor_auth_provider')
+    rcFile.addProvider('@mdsadique-inam/adonis-2fa/two_factor_auth_provider')
   })
 }
