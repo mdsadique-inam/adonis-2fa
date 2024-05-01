@@ -12,12 +12,16 @@ export default class TwoFactorAuthController {
   async generate({ auth }: HttpContext) {
     const user = auth.user!
 
-    user.twoFactorSecret = twoFactorAuth.generateSecret(user.email)
+    const twoFactorSecret = await twoFactorAuth.generateSecret(user.email)
+     user.twoFactorSecret = twoFactorSecret.secret
     user.isTwoFactorEnabled = false
 
     await user.save()
 
-    return user.twoFactorSecret
+    return {
+      uri: twoFactorSecret.uri,
+      qr: twoFactorSecret.qr,
+    }
   }
 
   async disable({ auth, response }: HttpContext) {
@@ -37,8 +41,12 @@ export default class TwoFactorAuthController {
 
     const user = auth.user!
 
+    if (!user.twoFactorSecret) {
+      return response.badRequest({ message: 'User without 2FA active' })
+    }
+
     const isValid = twoFactorAuth.verifyToken(
-      user.twoFactorSecret?.secret,
+      user.twoFactorSecret,
       otp,
       user.twoFactorRecoveryCodes
     )

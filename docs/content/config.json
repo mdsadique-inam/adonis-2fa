@@ -6,13 +6,12 @@
     },
     "github": {
       "title": "Adonis 2FA on GitHub",
-      "href": "https://github.com/nulix-dev/adonis-2fa"
+      "href": "https://github.com/mdsadique-inam/adonis-2fa"
     }
   },
   "sponsors_sources": [
-    "nulix-dev"
+    "mdsadique-inam"
   ],
   "search": {},
-  "fileEditBaseUrl": "https://github.com/nulix-dev/adonis-2fa/tree/develop/docs",
-  "copyright": "Nulix"
+  "fileEditBaseUrl": "https://github.com/mdsadique-inam/adonis-2fa/tree/develop/docs"
 }

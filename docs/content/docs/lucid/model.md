@@ -9,7 +9,6 @@ If you want to configure your `User` model to follow the basic flow that we reco
 ```ts
 // ...other imports
 import encryption from '@adonisjs/core/services/encryption'
-import { TwoFactorSecret } from '@mdsadique-inam/adonis-2fa/types'
 
 export default class User extends compose(BaseModel, AuthFinder) {
   // ...other user columns
@@ -25,7 +24,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
     consume: (value: string) => (value ? encryption.decrypt(value) : null),
     prepare: (value: string) => encryption.encrypt(value),
   })
-  declare twoFactorSecret: TwoFactorSecret | null
+  declare twoFactorSecret: string | null
   // highlight-end
 
   // highlight-start

@@ -41,8 +41,12 @@ export default class TwoFactorAuthController {
 
     const user = auth.user!
 
+    if (!user.twoFactorSecret) {
+      return response.badRequest({ message: 'User without 2FA active' })
+    }
+
     const isValid = twoFactorAuth.verifyToken(
-      user.twoFactorSecret?.secret,
+      user.twoFactorSecret,
       otp,
       user.twoFactorRecoveryCodes
     )

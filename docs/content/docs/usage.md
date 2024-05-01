@@ -50,7 +50,6 @@ If you are using [Lucid](https://lucid.adonisjs.com/docs/introduction), you can 
 ```ts
 // ...other imports
 import encryption from '@adonisjs/core/services/encryption'
-import { TwoFactorSecret } from '@mdsadique-inam/adonis-2fa/types'
 
 export default class User extends compose(BaseModel, AuthFinder) {
   // ...other user columns
@@ -60,7 +59,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
     consume: (value: string) => (value ? encryption.decrypt(value) : null),
     prepare: (value: string) => encryption.encrypt(value),
   })
-  declare twoFactorSecret: TwoFactorSecret | null
+  declare twoFactorSecret: string | null
   // highlight-end
 }
 ```
@@ -128,7 +127,7 @@ export default class TwoFactorAuthController {
 
     // highlight-start
     const isValid = twoFactorAuth.verifyToken(
-      user.twoFactorSecret?.secret,
+      user.twoFactorSecret,
       otp,
       user.twoFactorRecoveryCodes
     )

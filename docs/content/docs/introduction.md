@@ -64,7 +64,7 @@ node ace configure @mdsadique-inam/adonis-2fa
 
 The configuration for 2FA is stored inside the `config/2fa.ts` file.
 
-See also: [Adonis-2FA config stubs](https://github.com/nulix-dev/adonis-2fa/blob/develop/stubs/config/2fa.stub)
+See also: [Adonis-2FA config stubs](https://github.com/mdsadique-inam/adonis-2fa/blob/develop/stubs/config/2fa.stub)
 
 ```ts
 import env from '#start/env'
