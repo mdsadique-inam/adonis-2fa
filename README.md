@@ -10,7 +10,7 @@ Two Factor Authentication using `otplib` and `qrcode` integration for AdonisJS.
 
 ## Documentation
 
-TODO
+See documentation at [adonis-2fa.netlify.app](https://adonisjs-2fa.netlify.app)
 
 ## License
 
