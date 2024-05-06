@@ -18,17 +18,17 @@ Install the package from the npm packages registry using one of the following co
 
 ```sh
 // title: npm
-npm i @mdsadique-inam/adonis-2fa
+npm i @mdsadique-inam/adonisjs-2fa
 ```
 
 ```sh
 // title: yarn
-yarn add @mdsadique-inam/adonis-2fa
+yarn add @mdsadique-inam/adonisjs-2fa
 ```
 
 ```sh
 // title: pnpm
-pnpm add @mdsadique-inam/adonis-2fa
+pnpm add @mdsadique-inam/adonisjs-2fa
 ```
 
 :::
@@ -36,7 +36,7 @@ pnpm add @mdsadique-inam/adonis-2fa
 Once the package is installed, you must configure it using the `node ace configure` command.
 
 ```sh
-node ace configure @mdsadique-inam/adonis-2fa
+node ace configure @mdsadique-inam/adonisjs-2fa
 ```
 
 :::disclosure{title="See steps performed by the configure command"}
@@ -47,7 +47,7 @@ node ace configure @mdsadique-inam/adonis-2fa
    {
      providers: [
        // ...other providers
-       () => import('@mdsadique-inam/adonis-2fa/two_factor_auth_provider'),
+       () => import('@mdsadique-inam/adonisjs-2fa/two_factor_auth_provider'),
      ]
    }
    ```
@@ -64,11 +64,11 @@ node ace configure @mdsadique-inam/adonis-2fa
 
 The configuration for 2FA is stored inside the `config/2fa.ts` file.
 
-See also: [Adonis-2FA config stubs](https://github.com/mdsadique-inam/adonis-2fa/blob/develop/stubs/config/2fa.stub)
+See also: [Adonis-2FA config stubs](https://github.com/mdsadique-inam/adonisjs-2fa/blob/develop/stubs/config/2fa.stub)
 
 ```ts
 import env from '#start/env'
-import { defineConfig } from '@mdsadique-inam/adonis-2fa'
+import { defineConfig } from '@mdsadique-inam/adonisjs-2fa'
 
 const twoFactorAuthConfig = defineConfig({
   issuer: env.get('APP_ISSUER', 'adonis'),

@@ -1,5 +1,5 @@
 {
-  "name": "@mdsadique-inam/adonis-2fa",
+  "name": "@mdsadique-inam/adonisjs-2fa",
   "description": "A Two Factor Authentication Helper for AdonisJS",
   "version": "0.0.0",
   "engines": {

@@ -19,7 +19,7 @@ To create that we should call the `generateSecret` method passing some user info
 ```ts
 import type { HttpContext } from '@adonisjs/core/http'
 
-import twoFactorAuth from '@mdsadique-inam/adonis-2fa/services/main'
+import twoFactorAuth from '@mdsadique-inam/adonisjs-2fa/services/main'
 
 export default class TwoFactorAuthController {
   async generate({ auth }: HttpContext) {
@@ -73,7 +73,7 @@ To create them we should call the `generateRecoveryCodes` method. As default, it
 ```ts
 import type { HttpContext } from '@adonisjs/core/http'
 
-import twoFactorAuth from '@mdsadique-inam/adonis-2fa/services/main'
+import twoFactorAuth from '@mdsadique-inam/adonisjs-2fa/services/main'
 
 export default class TwoFactorAuthController {
   async generateRecoveryCodes({ auth }: HttpContext) {
@@ -117,7 +117,7 @@ To verify the OTP (One-time password) we should use the `verifyToken` method pas
 ```ts
 import type { HttpContext } from '@adonisjs/core/http'
 
-import twoFactorAuth from '@mdsadique-inam/adonis-2fa/services/main'
+import twoFactorAuth from '@mdsadique-inam/adonisjs-2fa/services/main'
 
 export default class TwoFactorAuthController {
   async verify({ auth, request, response }: HttpContext) {
