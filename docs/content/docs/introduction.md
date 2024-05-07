@@ -6,9 +6,11 @@ summary: Adonis-2FA is a library for managing Two Factor Authentication in your 
 
 Adonis-2FA is a library for managing Two Factor Authentication in your AdonisJS project build on top of [node-2fa](https://github.com/jeremyscalpello/node-2fa).
 
-The package it self does not store any secret or data on your behalf. It only give you access the methods to implement a two factor authentication flow and create recovery codes. You can store that information inside a database and use the [auth](https://docs.adonisjs.com/guides/auth) package to login the user within your application.
+The package it self does not store any secret or data on your behalf. It only give you access the methods to implement a two factor authentication flow and create recovery codes.
+You can store that information inside a database and use the [auth](https://docs.adonisjs.com/guides/auth) package to login the user within your application.
 
-But you can generate some sample codes like migrations and API controllers/routes to give you some ideas on how to implement your [2FA flow](https://saaswebsites.com/userflow-articles/two-factor-authentication-2fa-user-flow-examples-and-tips/).
+But you can generate some sample codes like migrations and API controllers/routes to give you some ideas on how to implement
+your [2FA flow](https://saaswebsites.com/userflow-articles/two-factor-authentication-2fa-user-flow-examples-and-tips/).
 
 ## Installation
 
@@ -68,10 +70,25 @@ See also: [Adonis-2FA config stubs](https://github.com/mdsadique-inam/adonisjs-2
 
 ```ts
 import env from '#start/env'
-import { defineConfig } from '@mdsadique-inam/adonisjs-2fa'
+import {defineConfig} from '@mdsadique-inam/adonisjs-2fa'
 
 const twoFactorAuthConfig = defineConfig({
   issuer: env.get('APP_ISSUER', 'adonis'),
+  /**
+   * Number of secret bytes that will generate on twoFactorAuth.generateSecret(user.email)
+   * default value is 20
+   */
+  numberOfSecretBytes: 20,
+  /**
+   * Size of the recovery code that will be generated
+   * default value is 10
+   */
+  recoveryCodeSize: 10,
+  /**
+   * The length of recovery codes array
+   * default is 10
+   */
+  recoveryCodesLength: 10
 })
 
 export default twoFactorAuthConfig
@@ -91,4 +108,24 @@ The name of your application that will show in the user 2FA Authenticator.
 
 </dd>
 
+<dt>
+  numberOfSecretBytes
+</dt>
+<dd>
+  Number of secret bytes that will generate on twoFactorAuth.generateSecret(user.email). If not set it will use default value which is 20
+</dd>
+
+<dt>
+recoveryCodeSize
+</dt>
+<dd>
+Size of the recovery code that you want to generate. If not set it will use default value which is 10
+</dd>
+
+<dt>
+recoveryCodesLength
+</dt>
+<dd>
+The length of recovery codes array that you want to generate. If not set it will use default value which is 10
+</dd>
 </dl>
